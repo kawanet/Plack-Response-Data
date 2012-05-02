@@ -1,0 +1,17 @@
+Changes
+MANIFEST
+META.yml
+Makefile.PL
+README
+lib/Plack/Response/Data.pm
+lib/Plack/Response/Data/JSON.pm
+lib/Plack/Response/Data/Status.pm
+lib/Plack/Response/Data/XML.pm
+lib/Plack/Response/Data/YAML.pm
+t/00_compile.t
+t/01_pod.t
+t/10_json.t
+t/20_xml.t
+t/30_yaml.t
+t/40_status.t
+t/50_format.t

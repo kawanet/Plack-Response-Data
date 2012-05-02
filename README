@@ -1,0 +1,64 @@
+NAME
+    Plack::Response::Data - Response Content Body Encoder for JSON, XML,
+    YAML, etc.
+
+SYNOPSIS
+        use Plack::Response::Data;
+
+        sub psgi_handler {
+            my $env  = shift;
+            my $req  = Plack::Request->new($env);
+    
+            my $data = { key => 'value', array => [1, 2, 3] };
+            my $res  = Plack::Response::Data->new(200)->format('JSON')->data($data);
+            return $res->finalize;
+        }
+
+DESCRIPTION
+    This uses Plack::Response's response content body as a data container to
+    respond a data encoded in JSON, XML, YAML format, etc. This would help
+    you to build an Web API server application in a short code.
+
+METHODS
+    This is a subclass of "Plack::Response" class. This provides the
+    following additional methods as well as other methods inherited since
+    "Plack::Response".
+
+  format
+    This specifies a data container format. Any formats found at
+    "Plack::Response::Data::*" modules are supported.
+
+        $res->format('JSON');       # uses Plack::Response::Data::JSON
+        $res->format('XML');        # uses Plack::Response::Data::XML
+        $res->format('YAML');       # uses Plack::Response::Data::YAML
+
+    Without arguments given, this returns the current format.
+
+        $format = $res->format;     # returns 'JSON' etc.
+
+  data
+    This writes a data object into response content body.
+
+        $data = {key => 'val'};     # a hashref
+        $res->data($data);
+        $body = $res->body;         # returns a JSON encoded string: '{"key":"val"}'
+
+    Without arguments given, this parses the current resopnse content body
+    as a data object vice versa.
+
+        $body = '{"key":"val"}';    # a JSON encoded string
+        $res->body($body);
+        $data = $res->data;         # returns a hashref decoded: {key => 'val'}
+
+AUTHOR
+    Yusuke Kawasaki
+
+SEE ALSO
+    Plack::Response
+
+    Plack::Response::Data::JSON
+
+    Plack::Response::Data::XML
+
+    Plack::Response::Data::YAML
+
